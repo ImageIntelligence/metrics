@@ -16,7 +16,7 @@ Available at [Bintray](https://bintray.com/imageintelligence/maven/metrics) and 
 Just add this to your build.sbt
 
 ```
-"com.imageintelligence" %% "metrics" % "0.0.2"
+"com.imageintelligence" %% "metrics" % "0.0.1"
 ```
 
 ### As a project to work on
