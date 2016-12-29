@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/ImageIntelligence/metrics.svg?branch=master)](https://travis-ci.org/ImageIntelligence/metrics)
 [![Download](https://api.bintray.com/packages/imageintelligence/maven/metrics/images/download.svg)](https://bintray.com/imageintelligence/maven/metrics/_latestVersion)
 
-A collection of utilities to help make working with [http4s](http://http4s.org) easier.
+A thin Scala wrapper around StatsD. Provides some utility functions for timing things.
 
 ## Published artifacts:
 
