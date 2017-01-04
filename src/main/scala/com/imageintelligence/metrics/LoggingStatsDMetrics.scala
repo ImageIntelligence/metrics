@@ -1,6 +1,4 @@
-package com.imageintelligence.metrics.impl
-
-import com.imageintelligence.metrics.StatsDMetrics
+package com.imageintelligence.metrics
 
 /**
  * A simple no op logging based metrics recorder.

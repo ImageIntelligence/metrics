@@ -1,6 +1,6 @@
 package com.imageintelligence.metrics.examples
 
-import com.imageintelligence.metrics.impl.NonBlockingStatsDMetrics
+import com.imageintelligence.metrics.NonBlockingStatsDMetrics
 
 object NonBlockingStatsDMetricsExample {
   def main(args: Array[String]): Unit = {

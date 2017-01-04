@@ -1,6 +1,5 @@
-package com.imageintelligence.metrics.impl
+package com.imageintelligence.metrics
 
-import com.imageintelligence.metrics.StatsDMetrics
 import com.timgroup.statsd.NonBlockingStatsDClient
 
 case class NonBlockingStatsDMetrics(prefix: String, hostname: String, port: Int) extends StatsDMetrics {
