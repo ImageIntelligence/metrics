@@ -11,7 +11,7 @@ object Timing {
   /**
    * Times a block.
    */
-  def timeBlock[A](name: String)(f: => A): (Duration, A) = {
+  def timeBlock[A](f: => A): (Duration, A) = {
     val start = System.nanoTime()
     val result = f
     val end = System.nanoTime()
@@ -21,7 +21,7 @@ object Timing {
   /**
    * * Times a Monadic function. Useful for timing Tasks
    */
-  def timeMonad[M[_]: Monad, A](name: String)(f: => M[A]): M[(Duration, A)] = {
+  def timeMonad[M[_]: Monad, A](f: => M[A]): M[(Duration, A)] = {
     System.nanoTime().pure[M].flatMap { start =>
       for {
         result <- f
