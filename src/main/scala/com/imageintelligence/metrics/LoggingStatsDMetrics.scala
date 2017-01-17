@@ -5,30 +5,42 @@ package com.imageintelligence.metrics
  * It just logs the metrics out via the logging function passed in.
  * Useful for debugging or local development
  */
-case class LoggingStatsDMetrics(logger: String => Unit) extends StatsDMetrics {
+case class LoggingStatsDMetrics(logger: String => Unit) extends DogStatsDMetrics {
 
-  def time(name: String, value: Long): Unit = {
-    logger(s"#time: $name took ${value}ms")
+  def time(name: String, value: Long, tags: String*): Unit = {
+    logger(s"#time: $name took ${value}ms. Tags: ${tags.mkString(",")}")
   }
 
-  def increment(name: String): Unit = {
-    logger(s"#increment: $name incremented")
+  def increment(name: String, tags: String*): Unit = {
+    logger(s"#increment: $name incremented. Tags: ${tags.mkString(",")}")
   }
 
-  def incrementBy(name: String, count: Int): Unit = {
-    logger(s"#incrementBy: $name incremented by ${count}")
+  def incrementBy(name: String, count: Int, tags: String*): Unit = {
+    logger(s"#incrementBy: $name incremented by ${count}. Tags: ${tags.mkString(",")}")
   }
 
-  def decrement(name: String): Unit = {
-    logger(s"#decrement: $name decremented")
+  def decrement(name: String, tags: String*): Unit = {
+    logger(s"#decrement: $name decremented. Tags: ${tags.mkString(",")}")
   }
 
-  def decrementBy(name: String, count: Int): Unit = {
-    logger(s"#decrementBy: $name decremented by ${count}")
+  def decrementBy(name: String, count: Int, tags: String*): Unit = {
+    logger(s"#decrementBy: $name decremented by ${count}. Tags: ${tags.mkString(",")}")
   }
 
-  def gauge(name: String, value: Long): Unit = {
-    logger(s"#gauge: $name gauged at ${value}")
+  def gauge(name: String, value: Long, tags: String*): Unit = {
+    logger(s"#gauge: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
+  }
+
+  def count(name: String, value: Long, tags: String*): Unit = {
+    logger(s"#gauge: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
+  }
+
+  def recordExecutionTime(name: String, value: Long, tags: String*): Unit = {
+    logger(s"#gauge: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
+  }
+
+  def recordHistogramValue(name: String, value: Long, tags: String*): Unit = {
+    logger(s"#gauge: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
   }
 }
 

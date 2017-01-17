@@ -1,6 +1,6 @@
 package com.imageintelligence.metrics.examples
 
-import com.imageintelligence.metrics.StatsDMetrics
+import com.imageintelligence.metrics.DogStatsDMetrics
 import scalaz.Monad
 
 object StatsDMetricsExample {
@@ -15,7 +15,7 @@ object StatsDMetricsExample {
     Monad[IO].point(doSomeWork)
   }
 
-  def run(metrics: StatsDMetrics): Unit =  {
+  def run(metrics: DogStatsDMetrics): Unit =  {
     metrics.timeBlock("blocking-work")(doSomeWork())
     metrics.timeMonad("monad-work")(doSomeWorkMonad()).run
 

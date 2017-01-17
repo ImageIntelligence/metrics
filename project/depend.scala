@@ -7,8 +7,8 @@ object Depend {
     "org.scalaz" %% "scalaz-core"
   ).map(_ % scalazVersion)
 
-  lazy val statsDClient = Seq(
-    "com.timgroup" % "java-statsd-client" % "3.0.1"
+  lazy val dogStatsDClient = Seq(
+    "com.datadoghq" % "java-dogstatsd-client" % "2.3"
   )
 
   lazy val scalaTestCheck = Seq(
@@ -23,6 +23,6 @@ object Depend {
 
   lazy val dependencies = 
     scalaz ++
-    statsDClient ++
+    dogStatsDClient ++
     scalaTestCheck
 }
