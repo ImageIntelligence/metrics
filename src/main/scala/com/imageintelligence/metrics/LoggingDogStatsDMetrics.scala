@@ -5,7 +5,7 @@ package com.imageintelligence.metrics
  * It just logs the metrics out via the logging function passed in.
  * Useful for debugging or local development
  */
-case class LoggingStatsDMetrics(logger: String => Unit) extends DogStatsDMetrics {
+case class LoggingDogStatsDMetrics(logger: String => Unit) extends DogStatsDMetrics {
 
   def time(name: String, value: Long, tags: String*): Unit = {
     logger(s"#time: $name took ${value}ms. Tags: ${tags.mkString(",")}")
@@ -32,22 +32,22 @@ case class LoggingStatsDMetrics(logger: String => Unit) extends DogStatsDMetrics
   }
 
   def count(name: String, value: Long, tags: String*): Unit = {
-    logger(s"#gauge: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
+    logger(s"#count: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
   }
 
   def recordExecutionTime(name: String, value: Long, tags: String*): Unit = {
-    logger(s"#gauge: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
+    logger(s"#recordExecutionTime: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
   }
 
   def recordHistogramValue(name: String, value: Long, tags: String*): Unit = {
-    logger(s"#gauge: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
+    logger(s"#recordHistogramValue: $name gauged at ${value}. Tags: ${tags.mkString(",")}")
   }
 }
 
-object LoggingStatsDMetrics {
+object LoggingDogStatsDMetrics {
 
   /**
    * A simple println based metrics impl.
    */
-  def printlnMetrics = LoggingStatsDMetrics(println)
+  def printlnMetrics = LoggingDogStatsDMetrics(println)
 }
