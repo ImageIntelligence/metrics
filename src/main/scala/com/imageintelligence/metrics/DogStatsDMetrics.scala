@@ -1,5 +1,6 @@
 package com.imageintelligence.metrics
 
+import scalaz.EitherT
 import scalaz.Monad
 import scalaz.syntax.monad._
 
@@ -25,10 +26,20 @@ trait DogStatsDMetrics {
   }
 
   /**
-   * * Times a Monadic function. Useful for timing Tasks or Futures.
+   * * Times a monadic function. Useful for timing Tasks or Futures.
    */
   def timeMonad[M[_]: Monad, A](name: String, tags: String*)(f: => M[A]): M[A] = {
     Timing.timeMonad[M, A](f).map { case (duration, result) =>
+      recordExecutionTime(name, duration.toMillis, tags: _*)
+      result
+    }
+  }
+
+  /**
+   * * Times a monadic EitherT function. Useful for timing transformer stacks
+   */
+  def timeEitherT[M[_]: Monad, E, A](name: String, tags: String*)(f: => EitherT[M, E, A]): EitherT[M, E, A] = {
+    Timing.timeEitherT[M, E, A](f).map { case (duration, result) =>
       recordExecutionTime(name, duration.toMillis, tags: _*)
       result
     }
