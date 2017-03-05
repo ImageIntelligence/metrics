@@ -3,6 +3,7 @@ package com.imageintelligence.metrics
 import scalaz.EitherT
 import scalaz.Monad
 import scalaz.syntax.monad._
+import scalaz.Id._
 
 trait DogStatsDMetrics {
 
@@ -20,7 +21,7 @@ trait DogStatsDMetrics {
    * Times a block.
    */
   def timeBlock[A](name: String, tags: String*)(f: => A): A = {
-    val (duration, result) = Timing.timeBlock(f)
+    val (duration, result) = Timing.timeMonad[Id, A](f)
     recordExecutionTime(name, duration.toMillis, tags: _*)
     result
   }
@@ -39,7 +40,8 @@ trait DogStatsDMetrics {
    * * Times a monadic EitherT function. Useful for timing transformer stacks
    */
   def timeEitherT[M[_]: Monad, E, A](name: String, tags: String*)(f: => EitherT[M, E, A]): EitherT[M, E, A] = {
-    Timing.timeEitherT[M, E, A](f).map { case (duration, result) =>
+    type ET[Z] = EitherT[M, E, Z]
+    Timing.timeMonad[ET, A](f).map { case (duration, result) =>
       recordExecutionTime(name, duration.toMillis, tags: _*)
       result
     }
