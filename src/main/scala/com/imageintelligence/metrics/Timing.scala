@@ -23,12 +23,11 @@ object Timing {
     * * Times a monadic function. Useful for timing Tasks
     */
   def timeMonad[M[_]: Monad, A](f: => M[A]): M[(Duration, A)] = {
-    System.nanoTime().pure[M].flatMap { start =>
-      for {
-        result <- f
-        end <- System.nanoTime().pure[M]
-      } yield (Duration(end - start, TimeUnit.NANOSECONDS), result)
-    }
+    for {
+      start <- System.nanoTime().pure[M]
+      result <- f
+      end <- System.nanoTime().pure[M]
+    } yield (Duration(end - start, TimeUnit.NANOSECONDS), result)
   }
 
   /**
@@ -36,11 +35,10 @@ object Timing {
    */
   def timeEitherT[M[_]: Monad, E, A](f: => EitherT[M, E, A]): EitherT[M, E, (Duration, A)] = {
     type ET[Z] = EitherT[M, E, Z]
-    System.nanoTime().pure[ET].flatMap { start =>
-      for {
-        result <- f
-        end <- System.nanoTime().pure[ET]
-      } yield (Duration(end - start, TimeUnit.NANOSECONDS), result)
-    }
+    for {
+      start <- System.nanoTime().pure[ET]
+      result <- f
+      end <- System.nanoTime().pure[ET]
+    } yield (Duration(end - start, TimeUnit.NANOSECONDS), result)
   }
 }
