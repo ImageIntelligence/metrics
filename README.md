@@ -16,10 +16,10 @@ Available at [Bintray](https://bintray.com/imageintelligence/maven/metrics) and 
 Just add this to your build.sbt
 
 ```
-"com.imageintelligence" %% "metrics" % "0.0.1"
+"com.imageintelligence" %% "metrics" % "0.0.7"
 ```
 
-### As a project to work on
+### As a project to work on:
 
 Clone the repository:
 
@@ -42,5 +42,3 @@ sbt test
 ## Examples:
 
 Please see the [examples](https://github.com/ImageIntelligence/metrics/tree/master/src/main/scala/com/imageintelligence/metrics/examples) directory.
-
-
