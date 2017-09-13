@@ -1,9 +1,9 @@
 package com.imageintelligence.metrics.examples
 
 import com.imageintelligence.metrics.DogStatsDMetrics
-
-import scalaz.EitherT
-import scalaz.Monad
+import cats._
+import cats.data.EitherT
+import cats.implicits._
 
 object StatsDMetricsExample {
 
@@ -14,17 +14,17 @@ object StatsDMetricsExample {
   }
 
   def doSomeWorkMonad(): IO[String] = {
-    Monad[IO].point(doSomeWork)
+    Monad[IO].pure(doSomeWork)
   }
 
   def doSomeWorkEitherT(): EitherT[IO, Throwable, String] = {
-    EitherT.fromTryCatchNonFatal(Monad[IO].point(doSomeWork))
+    EitherT(Monad[IO].pure(Either.catchNonFatal(doSomeWork)))
   }
 
   def run(metrics: DogStatsDMetrics): Unit =  {
     metrics.timeBlock("blocking-work")(doSomeWork())
     metrics.timeMonad("monad-work")(doSomeWorkMonad()).run
-    metrics.timeEitherT("eithert-work")(doSomeWorkEitherT()).run.run
+    metrics.timeEitherT("eithert-work")(doSomeWorkEitherT()).value.run
 
     metrics.decrement("example-decrement")
     metrics.increment("example-increment")
