@@ -1,9 +1,8 @@
 package com.imageintelligence.metrics
 
-import scalaz.EitherT
-import scalaz.Monad
-import scalaz.syntax.monad._
-import scalaz.Id._
+import cats._
+import cats.data.EitherT
+import cats.implicits._
 
 trait DogStatsDMetrics {
 

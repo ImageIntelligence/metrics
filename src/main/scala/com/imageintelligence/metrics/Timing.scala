@@ -3,8 +3,7 @@ package com.imageintelligence.metrics
 import java.util.concurrent.TimeUnit
 
 import scala.concurrent.duration.Duration
-import scalaz.Monad
-import scalaz.syntax.monad._
+import cats._, cats.implicits._
 
 object Timing {
 
