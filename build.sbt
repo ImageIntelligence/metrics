@@ -1,5 +1,3 @@
-import Depend._
-
 import scala.util.Try
 
 lazy val buildSettings = Seq(
